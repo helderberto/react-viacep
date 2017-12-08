@@ -1,0 +1,17 @@
+.location {
+  margin: 60px 0;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 3px;
+}
+.location__item>strong {
+  margin-right: 8px;
+  font-weight: 700;
+}
+.location__item {
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.location__item:last-child {
+  margin-bottom: 0;
+}
