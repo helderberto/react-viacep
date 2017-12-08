@@ -8,7 +8,7 @@ class App extends Component {
       <div className="app">
         <MapImage height="200" />
 
-        <h1>Buscar endereço</h1>
+        <h1>Buscar endereço pelo CEP</h1>
 
         <CustomForm />
       </div>
