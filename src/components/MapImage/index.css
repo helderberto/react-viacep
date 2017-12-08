@@ -2,3 +2,10 @@
   display: block;
   margin: 0 auto 60px;
 }
+
+@media screen and (max-width: 768px) {
+  .map__location {
+    margin-bottom: 40px;
+    height: 100px;
+  }
+}

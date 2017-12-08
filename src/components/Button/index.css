@@ -25,3 +25,10 @@
 .btn__danger:focus {
   background-color: #A33939;
 }
+
+@media screen and (max-width: 768px) {
+  .btn {
+    height: 45px;
+    font-size: 1.5rem;
+  }
+}

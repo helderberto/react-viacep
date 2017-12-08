@@ -11,3 +11,20 @@
 .form-zipcode.inline>.form__group:last-child>.btn {
   border-radius: 0 3px 3px 0;
 }
+
+@media screen and (max-width: 768px) {
+  .form-zipcode.inline>.form__group:last-child,
+  .form-zipcode.inline>.form__group {
+    width: 100%;
+    display: block;
+  }
+  .form-zipcode.inline .form__field {
+    border-radius: 3px 3px 0 0;
+    height: 50px;
+    font-size: 1.5rem;
+    padding: 12px;
+  }
+  .form-zipcode.inline>.form__group:last-child>.btn {
+    border-radius: 0 0 3px 3px;
+  }
+}
