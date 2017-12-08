@@ -1,0 +1,27 @@
+.btn {
+  height: 80px;
+  border-radius: 3px;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #fff;
+  padding: 15px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  display: block;
+  width: 100%;
+}
+.btn__success {
+  background-color: #28BF7B;
+}
+.btn__success:hover,
+.btn__success:focus {
+  background-color: #1D8C5A;
+}
+.btn__danger {
+  background-color: #D64B4B;
+}
+.btn__danger:hover,
+.btn__danger:focus {
+  background-color: #A33939;
+}

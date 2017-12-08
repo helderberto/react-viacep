@@ -1,0 +1,13 @@
+.form-zipcode.inline>.form__group {
+  display: inline-block;
+  width: 62%;
+}
+.form-zipcode.inline>.form__group:last-child {
+  width: 38%;
+}
+.form-zipcode.inline .form__field {
+  border-radius: 3px 0 0 3px;
+}
+.form-zipcode.inline>.form__group:last-child>.btn {
+  border-radius: 0 3px 3px 0;
+}
