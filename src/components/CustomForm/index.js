@@ -22,9 +22,15 @@ class CustomForm extends Component {
   }
 
   handleChangeInput(event) {
+    let zipcode = this.maskZipcode(event.target.value);
+
     this.setState({
-      zipcode: event.target.value
+      zipcode: zipcode
     });
+  }
+
+  maskZipcode = (zipcode) => {
+    return (zipcode.length === 5 ? `${zipcode}-` : zipcode);
   }
 
   handleSubmit(event) {
@@ -35,7 +41,8 @@ class CustomForm extends Component {
         .then(response => {
           if (response.erro) {
             this.setState({
-              invalidLocation: true
+              invalidLocation: true,
+              location: ''
             });
           } else {
             this.setState({
