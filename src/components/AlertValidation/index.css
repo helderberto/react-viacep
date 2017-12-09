@@ -1,0 +1,20 @@
+.alert {
+  padding: 15px;
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+  margin-top: 20px;
+  color: #fff;
+  border-radius: 3px;
+}
+.alert__error {
+  background-color: #FF464B;
+}
+
+@media screen and (max-width: 768px) {
+  .alert {
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+  }
+}

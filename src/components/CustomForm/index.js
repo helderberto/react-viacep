@@ -3,6 +3,7 @@ import './index.css';
 import CustomInput from '../CustomInput';
 import Button from '../Button';
 import Location from '../Location';
+import AlertValidation from '../AlertValidation';
 import ViaCep from '../../services/viacep';
 
 class CustomForm extends Component {
@@ -11,11 +12,12 @@ class CustomForm extends Component {
 
     this.state = {
       zipcode: '',
-      location: ''
+      location: '',
+      invalidLocation: false
     };
 
     this.handleChangeInput = this.handleChangeInput.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClickClear = this.handleClickClear.bind(this);
   }
 
@@ -25,14 +27,27 @@ class CustomForm extends Component {
     });
   }
 
-  handleClick(event) {
+  handleSubmit(event) {
+    event.preventDefault();
+    
     if (this.isValidZipcode(this.state.zipcode)) {
       ViaCep.getByCep(this.state.zipcode)
         .then(response => {
-          this.setState({
-            location: response
-          });
+          if (response.erro) {
+            this.setState({
+              invalidLocation: true
+            });
+          } else {
+            this.setState({
+              location: response,
+              invalidLocation: false
+            });
+          }
         });
+    } else {
+      this.setState({
+        invalidLocation: true
+      });
     }
   }
 
@@ -50,17 +65,35 @@ class CustomForm extends Component {
   }
 
   render() {
+    const hasLocation = (this.state.location !== "" ? true : false);
+    const isValidLocation = this.state.invalidLocation;
+
+    let location = null;
+    let buttonClear = null;
+
+    if (hasLocation) {
+      location = <Location location={this.state.location} />;
+      buttonClear = <Button onClick={this.handleClickClear} className="btn btn__danger">Limpar resultados</Button>;
+    }
+
+    let alertValidation = null;
+    if (isValidLocation) {
+      alertValidation = <AlertValidation className="alert alert__error">Informe um CEP válido.</AlertValidation>;
+    }
+
     return(
       <div>
-        <form {...this.props} className="form-zipcode inline">
+        <form {...this.props} onSubmit={this.handleSubmit} className="form-zipcode inline">
           <CustomInput type="tel" value={this.state.zipcode} onChange={this.handleChangeInput} placeholder="Ex.: 99999-999" maxLength="9" name="cep" />
           <div className="form__group">
-            <Button onClick={this.handleClick} className="btn btn__success">Consultar</Button>
+            <Button type="submit" className="btn btn__success">Consultar</Button>
           </div>
         </form>
 
-        {(this.state.location !== "" ? <Location location={this.state.location} /> : '')}
-        {(this.state.location !== "" ? <Button onClick={this.handleClickClear} className="btn btn__danger">Limpar resultados</Button> : '')}
+        {alertValidation}
+
+        {location}
+        {buttonClear}
       </div>
     );
   }
