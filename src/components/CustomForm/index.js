@@ -53,7 +53,7 @@ class CustomForm extends Component {
     return(
       <div>
         <form {...this.props} className="form-zipcode inline">
-          <CustomInput value={this.state.zipcode} onChange={this.handleChangeInput} placeholder="Ex.: 99999-999" maxLength="9" name="cep" />
+          <CustomInput type="tel" value={this.state.zipcode} onChange={this.handleChangeInput} placeholder="Ex.: 99999-999" maxLength="9" name="cep" />
           <div className="form__group">
             <Button onClick={this.handleClick} className="btn btn__success">Consultar</Button>
           </div>
