@@ -19,18 +19,13 @@ class CustomForm extends Component {
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClickClear = this.handleClickClear.bind(this);
+    this.handleBlurInput = this.handleBlurInput.bind(this);
   }
 
   handleChangeInput(event) {
-    let zipcode = this.maskZipcode(event.target.value);
-
     this.setState({
-      zipcode: zipcode
+      zipcode: event.target.value
     });
-  }
-
-  maskZipcode = (zipcode) => {
-    return (zipcode.length === 5 ? `${zipcode}-` : zipcode);
   }
 
   handleSubmit(event) {
@@ -58,6 +53,10 @@ class CustomForm extends Component {
     }
   }
 
+  isValidZipcode = (zipcode) => {
+    return (/^[0-9]{5}-[0-9]{3}$/.test(zipcode));
+  }
+
   handleClickClear(event) {
     if (this.state.location !== '') {
       this.setState({
@@ -67,8 +66,20 @@ class CustomForm extends Component {
     }
   }
 
-  isValidZipcode = (zipcode) => {
-    return /^[0-9]{5}-[0-9]{3}$/.test(zipcode);
+  handleBlurInput(event) {
+    if (this.state.zipcode) {
+      const zipcode = this.maskZipcode(this.state.zipcode);
+      this.setState({
+        zipcode: zipcode
+      });
+    }
+  }
+
+  maskZipcode = (zipcode) => {
+    const zipcodeStart = zipcode.substring(0, zipcode.length-3);
+    const zipcodeEnd = zipcode.substring(zipcode.length-3, zipcode.length);
+
+    return `${zipcodeStart}-${zipcodeEnd}`;
   }
 
   render() {
@@ -91,7 +102,7 @@ class CustomForm extends Component {
     return(
       <div>
         <form {...this.props} onSubmit={this.handleSubmit} className="form-zipcode inline">
-          <CustomInput type="tel" value={this.state.zipcode} onChange={this.handleChangeInput} placeholder="Ex.: 99999-999" maxLength="9" name="cep" />
+          <CustomInput type="tel" value={this.state.zipcode} onBlur={this.handleBlurInput} onChange={this.handleChangeInput} placeholder="Ex.: 99999-999" maxLength="9" name="cep" />
           <div className="form__group">
             <Button type="submit" className="btn btn__success">Consultar</Button>
           </div>
