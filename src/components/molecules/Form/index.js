@@ -11,11 +11,12 @@ import "./index.css";
 const Form = props => {
   const [
     zipcode,
-    setZipcode,
     location,
-    setLocation,
     invalidZipcode,
-    setStatusZipcode
+    clearResults,
+    handleBlur,
+    updateLocation,
+    updateZipcode
   ] = useLocation();
 
   const onFormSubmit = event => {
@@ -24,30 +25,23 @@ const Form = props => {
     if (ViaCep.isValidZipcode(zipcode)) {
       ViaCep.getByCep(zipcode).then(response => {
         if (Object.keys(response).length > 1) {
-          setLocation(response);
-          setStatusZipcode(false);
+          updateLocation({
+            location: response,
+            invalidZipcode: false
+          });
           return;
         }
-        setLocation("");
-        setStatusZipcode(true);
+        updateLocation({
+          location: "",
+          invalidZipcode: true
+        });
         return;
       });
     } else {
-      setLocation("");
-      setStatusZipcode(true);
-    }
-  };
-
-  const handleClickClear = () => {
-    setLocation("");
-    setZipcode("");
-    setStatusZipcode(false);
-  };
-
-  const handleFieldBlur = () => {
-    if (zipcode && !ViaCep.isValidZipcode(zipcode)) {
-      const maskedZipcode = ViaCep.maskZipcode(zipcode);
-      setZipcode(maskedZipcode);
+      updateLocation({
+        location: "",
+        invalidZipcode: true
+      });
     }
   };
 
@@ -65,7 +59,7 @@ const Form = props => {
     locationResult = <Location location={location} />;
 
     buttonClear = (
-      <Button onClick={handleClickClear} className="btn btn__danger">
+      <Button onClick={clearResults} className="btn btn__danger">
         Limpar resultados
       </Button>
     );
@@ -77,8 +71,8 @@ const Form = props => {
         <Input
           type="tel"
           value={zipcode}
-          onBlur={handleFieldBlur}
-          onChange={event => setZipcode(event.target.value)}
+          onBlur={handleBlur}
+          onChange={event => updateZipcode({ zipcode: event.target.value })}
           placeholder="Ex.: 99999-999"
           maxLength="9"
           name="cep"
