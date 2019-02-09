@@ -1,19 +1,7 @@
-import React, { Component } from 'react';
-import MapImage from './components/MapImage';
-import CustomForm from './components/CustomForm';
+import React from "react";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="app">
-        <MapImage height="200" />
+import { AddressResults } from "components/organisms";
 
-        <h1>Buscar endereço pelo CEP</h1>
-
-        <CustomForm />
-      </div>
-    );
-  }
-}
+const App = () => <AddressResults />;
 
 export default App;
