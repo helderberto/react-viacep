@@ -1,8 +1,10 @@
 import React from "react";
-import useLocation from "./useLocation";
+import useLocation from "hooks/use-location";
 
 import { Input, Button, Alert } from "components/atoms";
 import { Location } from "components/molecules";
+
+import Zipcode from 'utils/zipcode';
 
 import ViaCep from "services/viacep";
 
@@ -22,7 +24,7 @@ const Form = props => {
   const onFormSubmit = event => {
     event.preventDefault();
 
-    if (ViaCep.isValidZipcode(zipcode)) {
+    if (Zipcode.isValid(zipcode)) {
       ViaCep.getByCep(zipcode).then(response => {
         if (Object.keys(response).length > 1) {
           updateLocation({
@@ -73,8 +75,8 @@ const Form = props => {
           value={zipcode}
           onBlur={handleBlur}
           onChange={event => updateZipcode({ zipcode: event.target.value })}
-          placeholder="Ex.: 99999-999"
-          maxLength="9"
+          placeholder="Ex.: 99999999"
+          maxLength="8"
           name="cep"
         />
         <div className="form__group">
