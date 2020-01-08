@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import ViaCep from "services/viacep";
+import Zipcode from 'utils/zipcode';
 
 export default () => {
   const [zipcode, setZipcode] = useState("");
@@ -14,18 +14,16 @@ export default () => {
   };
 
   const handleBlur = () => {
-    const ZIPCODE_WITHOUT_DASH_SIZE = 8;
-
-    if (zipcode.length < ZIPCODE_WITHOUT_DASH_SIZE) {
+    if (zipcode.length < Zipcode.size) {
       setStatusZipcode(true);
       return;
     }
 
     if (
-      zipcode.length >= ZIPCODE_WITHOUT_DASH_SIZE &&
-      !ViaCep.isValidZipcode(zipcode)
+      zipcode.length >= Zipcode.size &&
+      !Zipcode.isValid(zipcode)
     ) {
-      const maskedZipcode = ViaCep.maskZipcode(zipcode);
+      const maskedZipcode = Zipcode.mask(zipcode);
       setZipcode(maskedZipcode);
       setStatusZipcode(false);
     }
