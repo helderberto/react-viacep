@@ -1,8 +1,0 @@
-addons:
-  sonarcloud:
-    organization: "helderburato-github" # the key of the org you chose at step #3
-    token:
-      secure: de18fd9f714ff2e30c99cb6c0697f24570c5b9f5 # encrypted value of your token
-script:
-  # other script steps might be done before running the actual analysis
-  - sonar-scanner
