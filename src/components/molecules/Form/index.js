@@ -1,16 +1,12 @@
-import React from "react";
-import useLocation from "hooks/use-location";
-
-import { Input, Button, Alert } from "components/atoms";
-import { Location } from "components/molecules";
-
-import Zipcode from 'utils/zipcode';
-
-import ViaCep from "services/viacep";
+import useLocation from "../../../hooks/use-location";
+import { Input, Button, Alert } from "../../atoms";
+import { Location } from "../../molecules";
+import Zipcode from "../../../utils/zipcode";
+import ViaCep from "../../../services/viacep";
 
 import "./index.css";
 
-const Form = props => {
+const Form = (props) => {
   const [
     zipcode,
     location,
@@ -18,31 +14,31 @@ const Form = props => {
     clearResults,
     handleBlur,
     updateLocation,
-    updateZipcode
+    updateZipcode,
   ] = useLocation();
 
-  const onFormSubmit = event => {
+  const onFormSubmit = (event) => {
     event.preventDefault();
 
     if (Zipcode.isValid(zipcode)) {
-      ViaCep.getByCep(zipcode).then(response => {
+      ViaCep.getByCep(zipcode).then((response) => {
         if (Object.keys(response).length > 1) {
           updateLocation({
             location: response,
-            invalidZipcode: false
+            invalidZipcode: false,
           });
           return;
         }
         updateLocation({
           location: "",
-          invalidZipcode: true
+          invalidZipcode: true,
         });
         return;
       });
     } else {
       updateLocation({
         location: "",
-        invalidZipcode: true
+        invalidZipcode: true,
       });
     }
   };
@@ -74,7 +70,7 @@ const Form = props => {
           type="tel"
           value={zipcode}
           onBlur={handleBlur}
-          onChange={event => updateZipcode({ zipcode: event.target.value })}
+          onChange={(event) => updateZipcode({ zipcode: event.target.value })}
           placeholder="Ex.: 99999999"
           maxLength="8"
           name="cep"

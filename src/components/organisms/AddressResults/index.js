@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Map } from "components/atoms";
-import { Form } from "components/molecules";
+import { Map } from "../../atoms";
+import { Form } from "../../molecules";
 
 const AddressResults = () => {
   return (

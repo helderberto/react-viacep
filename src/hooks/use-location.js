@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import Zipcode from 'utils/zipcode';
+import Zipcode from "../utils/zipcode";
 
 export default () => {
   const [zipcode, setZipcode] = useState("");
@@ -19,10 +19,7 @@ export default () => {
       return;
     }
 
-    if (
-      zipcode.length >= Zipcode.size &&
-      !Zipcode.isValid(zipcode)
-    ) {
+    if (zipcode.length >= Zipcode.size && !Zipcode.isValid(zipcode)) {
       const maskedZipcode = Zipcode.mask(zipcode);
       setZipcode(maskedZipcode);
       setStatusZipcode(false);
@@ -43,6 +40,6 @@ export default () => {
     clearResults,
     handleBlur,
     updateLocation,
-    updateZipcode
+    updateZipcode,
   ];
 };

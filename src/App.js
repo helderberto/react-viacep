@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AddressResults } from "components/organisms";
+import { AddressResults } from "./components/organisms";
 
 const App = () => <AddressResults />;
 
